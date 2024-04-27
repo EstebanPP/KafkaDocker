@@ -4,9 +4,8 @@ Aplicacion para gestionar un sistema de mensajeria con Kafka y el almacenamiento
 
 ## Usar
 
-* Instalar "pip install git+https://github.com/dpkp/kafka-python.git"
-* Instalar "pip install kafka-python"
-* Ejecutar "app.py"
+* Crear el contenedor con "docker-compose up -d --build"
+* Ejecutar la aplicacion con "docker exec -it app python app.py"
 
 ## Manual
 * Tras una correcta ejecución por medio de la terminal se le solictiara el nombre y seguidamente se le solicitara el nombre del canal al que desea sucribirse 
