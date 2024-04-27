@@ -1,15 +1,14 @@
 from db_mongodb import get_mongo_connection
 from consumidor import recibirMensaje
-from productor import enviarMensaje
 from mensajeria import mensajeria
 from kafka import KafkaProducer
 from kafka import KafkaConsumer
 import threading
-from datetime import datetime
+import os
 
 
 # Se toma el host
-server = "localhost:9092"
+server = os.getenv('KAFKA-SERVER')
 
 # Se crean los dos servicios
 productor = KafkaProducer(bootstrap_servers=server)
@@ -32,7 +31,7 @@ escribir = threading.Thread(target=mensajeria, args=(productor, canal, consumido
 leer.start()
 escribir.start()
 
-# Esperar a que los subprocesos terminen (esto no debería suceder en un programa de consola)
+# Esperar a que los subprocesos terminen 
 leer.join()
 escribir.join()
 

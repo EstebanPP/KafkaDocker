@@ -1,8 +1,12 @@
 from pymongo import MongoClient
+import os
 
 def get_mongo_connection():
     try:
-        client = MongoClient('localhost', 27017, username='root', password='example')
+        client = MongoClient(os.getenv('MONGO-HOST'),
+                             int(os.getenv('MONGO-PORT')),
+                                username=os.getenv('MONGO-USERNAME'),
+                                password=os.getenv('MONGO-PASSWORD'))
         db = client['storage']
         return db
     except Exception as e:

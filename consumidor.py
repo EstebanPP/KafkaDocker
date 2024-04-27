@@ -1,8 +1,4 @@
-from kafka import KafkaConsumer
-from pymongo import MongoClient
-from datetime import datetime
 from bson import ObjectId
-
 from db_mongodb import get_mongo_connection
 
 # Recibe un mensaje del servidor de kafka
