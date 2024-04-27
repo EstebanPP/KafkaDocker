@@ -2,8 +2,6 @@ from db_mongodb import get_mongo_connection
 from consumidor import recibirMensaje
 from mensajeria import mensajeria
 from kafka import KafkaProducer
-from kafka import KafkaConsumer
-from config import consumidor
 import threading
 import os
 
@@ -22,17 +20,16 @@ user = db['users']
 userId=user.insert_one({"name":usuario}).inserted_id
 
 canal = input("Ingrese el canal del que desea leer y escirbir: ")
-consumidor.subscribe([canal])
 
 # Crear subprocesos para leer y escribir mensajes
-leer = threading.Thread(target=recibirMensaje)
+#leer = threading.Thread(target=recibirMensaje)
 escribir = threading.Thread(target=mensajeria, args=(productor, canal, userId,))
 
 # Iniciar los subprocesos
-leer.start()
+#leer.start()
 escribir.start()
 
 # Esperar a que los subprocesos terminen 
-leer.join()
+#leer.join()
 escribir.join()
 

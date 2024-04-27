@@ -1,15 +1,17 @@
 from bson import ObjectId
 from db_mongodb import get_mongo_connection
-from config import consumidor
+from config import getConsumidor , getBandera
 
 # Recibe un mensaje del servidor de kafka
-def recibirMensaje():
+def recibirMensaje(consumidor):
     try:
-        while True:
-            consumidor.poll(timeout_ms=1000)
-            for mensaje in consumidor:
+        print(f"Se ingreso en el canal de {consumidor.subscription()}")
+        while getBandera():
+            mensajes = consumidor.poll(timeout_ms=3000)
+            if mensajes != {}:
                 print("__ Nuevo Mensaje __")
-                print(f"Mensaje recibido de {consumidor.subscription()}: {mensaje.value.decode('utf-8')}\n")
+                print(f"Mensaje recibido de {consumidor.subscription()}: {mensajes}\n")
+        print(f"Se salio en el canal de {consumidor.subscription()}")
     except Exception as e:
         print("Error al recibir un mensaje.")
 

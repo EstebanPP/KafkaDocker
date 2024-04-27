@@ -1,11 +1,15 @@
 from productor import enviarMensaje
-from consumidor import recibirMensajesAnteriores
+from consumidor import recibirMensajesAnteriores, recibirMensaje
 import time
-from config import consumidor
+from config import consumidor, terminar, iniciar, cerrar, nuevo, getConsumidor
+import threading
 
-# Menu para manejar los mensajes y los canales
 def mensajeria(productor, canal, userId):
     print("###### Vienvenidos a nuestra aplicacion de mensajeria ######\n")
+    consumidor = nuevo()
+    consumidor.subscribe([canal])
+    leer = threading.Thread(target=recibirMensaje, args=(consumidor,))
+    leer.start()
     while True:
         try:
             print("--------------------")
@@ -23,13 +27,21 @@ def mensajeria(productor, canal, userId):
             elif opcion == "2":
                 temp = input("Digite el nuevo canal: ")
                 canal = temp
+                terminar()
+                leer.join()
                 time.sleep(2)
+                consumidor.close()
+                consumidor = nuevo()
                 consumidor.subscribe([canal])
+                iniciar()
+                leer = threading.Thread(target=recibirMensaje, args=(consumidor,))
+                leer.start()
                 time.sleep(1)
             elif opcion == "3":
                 recibirMensajesAnteriores(canal)
                 time.sleep(3)
             elif opcion == "4":
+                leer.join()
                 break
             else:
                 print("Esto no esta dentro de las opciones.")
