@@ -1,9 +1,10 @@
 from productor import enviarMensaje
 from consumidor import recibirMensajesAnteriores
 import time
+from config import consumidor
 
 # Menu para manejar los mensajes y los canales
-def mensajeria(productor, canal, consumidor, userId):
+def mensajeria(productor, canal, userId):
     print("###### Vienvenidos a nuestra aplicacion de mensajeria ######\n")
     while True:
         try:
@@ -18,12 +19,13 @@ def mensajeria(productor, canal, consumidor, userId):
             if opcion == "1":
                 mensaje = input(f"Escriba un mensaje para el canal '{canal}': ")
                 enviarMensaje(productor, canal, mensaje, userId)
-                time.sleep(3)
+                time.sleep(1)
             elif opcion == "2":
                 temp = input("Digite el nuevo canal: ")
                 canal = temp
+                time.sleep(2)
                 consumidor.subscribe([canal])
-                time.sleep(3)
+                time.sleep(1)
             elif opcion == "3":
                 recibirMensajesAnteriores(canal)
                 time.sleep(3)

@@ -3,6 +3,7 @@ from consumidor import recibirMensaje
 from mensajeria import mensajeria
 from kafka import KafkaProducer
 from kafka import KafkaConsumer
+from config import consumidor
 import threading
 import os
 
@@ -12,7 +13,7 @@ server = os.getenv('KAFKA-SERVER')
 
 # Se crean los dos servicios
 productor = KafkaProducer(bootstrap_servers=server)
-consumidor = KafkaConsumer(bootstrap_servers=server)
+
 
 # Solicitamos el canal
 usuario = input("Nombre usuario: ")
@@ -24,8 +25,8 @@ canal = input("Ingrese el canal del que desea leer y escirbir: ")
 consumidor.subscribe([canal])
 
 # Crear subprocesos para leer y escribir mensajes
-leer = threading.Thread(target=recibirMensaje, args=(consumidor, canal))
-escribir = threading.Thread(target=mensajeria, args=(productor, canal, consumidor, userId))
+leer = threading.Thread(target=recibirMensaje)
+escribir = threading.Thread(target=mensajeria, args=(productor, canal, userId,))
 
 # Iniciar los subprocesos
 leer.start()
