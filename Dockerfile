@@ -8,5 +8,3 @@ RUN pip install -r requirements.txt
 RUN pip install git+https://github.com/dpkp/kafka-python.git
 
 COPY . .
-
-#CMD ["python", "app.py"]

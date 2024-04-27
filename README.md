@@ -25,7 +25,8 @@ Aplicacion para gestionar un sistema de mensajeria con Kafka y el almacenamiento
 ## Arquitectura
 
 * Para la arquitectura de la aplicacion se deciden implementar hilos, estos hilos se inician en app.py y controlan paralelamente el recibimiento de mensajes y a su vez un menu para las diferentes opciones de la app.
-* Se tiene el consumidor de manera global en config.py para poder hacer uso de el dentro de toda la aplicacio.
+* Dentro de este menu se contiene un hilo del consumidor para poder finalizarlo cuando la aplicacion termina y ademas cambiar los canales a los cuales esta suscrito.
+* Se tiene el consumidor en config.py y una bandera para poder hacer uso de el dentro de toda la aplicacion, se crea una instancia del consumidor y se manera la bandera para parar o iniciar el consumidor.
 * Para el menu se usa mensajeria.py la cual tiene las opciones para mandar un mensaje, cambiar el canal actual y ademas el ver el historial de mensajes, se implemento por aparte para tener una forma mas sencilla de acceder al historial en cualquier momento y no solo entrando en el chat.
 
 ## Kafka

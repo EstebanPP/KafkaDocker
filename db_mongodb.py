@@ -1,6 +1,8 @@
+# Importaciones
 from pymongo import MongoClient
 import os
 
+# Funcion para conectar a mongo
 def get_mongo_connection():
     try:
         client = MongoClient(os.getenv('MONGO-HOST'),
